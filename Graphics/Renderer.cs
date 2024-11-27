@@ -13,7 +13,10 @@ public class Renderer
             var rectangle = new RectangleShape(new Vector2f(10, 10))
             {
                 Position = new Vector2f(tile.Position.X * 10, tile.Position.Y * 10),
-                FillColor = tile.Type == TerrainType.Earth ? Color.Green : Color.Blue
+                FillColor = tile.Type == TerrainType.Earth ? Color.Green : Color.Blue,
+                // Outline is only for dev
+                OutlineColor = Color.Red,
+                OutlineThickness = 1.0f
             };
             window.Draw(rectangle);
         }
