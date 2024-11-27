@@ -18,20 +18,24 @@ public class World
     public void Initialize()
     {
         var noise = new Simplex.Noise();
-        var scale = 0.02f;
-        var random = new Random();
-        var seed = random.Next(1000);
-        var threshold = 0.38f; // Increae number for more water
-        var offsetX = 50;
-        var offsetY = 30;
-        for (int x = 0; x < width; x++)
+        var scale = 0.10f;
+        var waterThreshold = 90f;
+        float[,] noiseValues = noise.Calc2D(height, width, scale);
+        for (int x = 0; x < noiseValues.GetLength(0); x++)
         {
-            for (int y = 0; y < width; y++)
+
+            for (int y = 0; y < noiseValues.GetLength(0); y++)
             {
-                var scaledX = (int)((x + seed + offsetX) * scale * 100);
-                var scaledY = (int)((y + seed + offsetY) * scale * 100);
-                var noiseValue = (float)noise.CalcPixel2D(scaledX, scaledY, 1) / 255.0f;
-                grid[x, y] = new Terrain(noiseValue < threshold ? TerrainType.Water : TerrainType.Earth, x, y);
+                var noiseVal = noiseValues[x, y];
+                switch (noiseVal)
+                {
+                    case var value when value < waterThreshold:
+                        grid[x, y] = new Terrain(TerrainType.Water, x, y);
+                        break;
+                    default:
+                        grid[x, y] = new Terrain(TerrainType.Earth, x, y);
+                        break;
+                }
             }
         }
     }
