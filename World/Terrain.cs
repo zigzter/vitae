@@ -1,6 +1,6 @@
 using SFML.System;
 
-public enum TerrainType { Water, Earth }
+public enum TerrainType { Water, Earth, Mountain, Peak }
 
 public class Terrain
 {

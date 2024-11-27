@@ -19,7 +19,9 @@ public class World
     {
         var noise = new Simplex.Noise();
         var scale = 0.10f;
-        var waterThreshold = 90f;
+        var peakThreshold = 240f;
+        var mountainThreshold = 220f;
+        var earthThreshold = 80f;
         float[,] noiseValues = noise.Calc2D(height, width, scale);
         for (int x = 0; x < noiseValues.GetLength(0); x++)
         {
@@ -29,11 +31,17 @@ public class World
                 var noiseVal = noiseValues[x, y];
                 switch (noiseVal)
                 {
-                    case var value when value < waterThreshold:
-                        grid[x, y] = new Terrain(TerrainType.Water, x, y);
+                    case var value when value > peakThreshold:
+                        grid[x, y] = new Terrain(TerrainType.Peak, x, y);
+                        break;
+                    case var value when value > mountainThreshold:
+                        grid[x, y] = new Terrain(TerrainType.Mountain, x, y);
+                        break;
+                    case var value when value > earthThreshold:
+                        grid[x, y] = new Terrain(TerrainType.Earth, x, y);
                         break;
                     default:
-                        grid[x, y] = new Terrain(TerrainType.Earth, x, y);
+                        grid[x, y] = new Terrain(TerrainType.Water, x, y);
                         break;
                 }
             }
