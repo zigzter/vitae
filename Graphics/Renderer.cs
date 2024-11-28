@@ -6,12 +6,12 @@ public class Renderer
     private readonly RenderWindow window;
     public Renderer(RenderWindow window) { this.window = window; }
 
-    public void DrawTerrain(Terrain[,] grid)
+    public void DrawTerrain(GridCell[,] grid)
     {
-        foreach (var tile in grid)
+        foreach (var cell in grid)
         {
             Color color;
-            switch (tile.Type)
+            switch (cell.terrain.Type)
             {
                 case TerrainType.Earth:
                     // TODO: Break these colors out into vars
@@ -32,7 +32,7 @@ public class Renderer
             }
             var rectangle = new RectangleShape(new Vector2f(10, 10))
             {
-                Position = new Vector2f(tile.Position.X * 10, tile.Position.Y * 10),
+                Position = new Vector2f(cell.Position.X * 10, cell.Position.Y * 10),
                 FillColor = color,
                 // Outline is only for dev
                 /* OutlineColor = Color.Red, */

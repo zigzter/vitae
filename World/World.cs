@@ -3,14 +3,14 @@ public class World
     private readonly int width;
     private readonly int height;
     private readonly List<Entity> entities;
-    private readonly Terrain[,] grid;
+    private readonly GridCell[,] grid;
     private readonly Random random;
 
     public World(int width, int height)
     {
         this.width = width;
         this.height = height;
-        this.grid = new Terrain[width, height];
+        this.grid = new GridCell[width, height];
         this.entities = new List<Entity>();
         this.random = new Random();
     }
@@ -29,21 +29,23 @@ public class World
             for (int y = 0; y < noiseValues.GetLength(0); y++)
             {
                 var noiseVal = noiseValues[x, y];
+                Terrain terrain;
                 switch (noiseVal)
                 {
                     case var value when value > peakThreshold:
-                        grid[x, y] = new Terrain(TerrainType.Peak, x, y);
+                        terrain = new Terrain(TerrainType.Peak, x, y);
                         break;
                     case var value when value > mountainThreshold:
-                        grid[x, y] = new Terrain(TerrainType.Mountain, x, y);
+                        terrain = new Terrain(TerrainType.Mountain, x, y);
                         break;
                     case var value when value > earthThreshold:
-                        grid[x, y] = new Terrain(TerrainType.Earth, x, y);
+                        terrain = new Terrain(TerrainType.Earth, x, y);
                         break;
                     default:
-                        grid[x, y] = new Terrain(TerrainType.Water, x, y);
+                        terrain = new Terrain(TerrainType.Water, x, y);
                         break;
                 }
+                grid[x, y] = new GridCell(x, y, terrain);
             }
         }
     }
@@ -55,6 +57,6 @@ public class World
     public void Draw(Renderer renderer)
     {
         renderer.DrawTerrain(grid);
-        foreach (var entity in entities) renderer.DrawEntity(entity);
+        foreach (var entity in entities) entity.Draw(renderer);
     }
 }
