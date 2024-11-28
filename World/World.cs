@@ -18,11 +18,11 @@ public class World
     public void Initialize()
     {
         var noise = new Simplex.Noise();
-        noise.Seed = new Random().Next();
+        noise.Seed = random.Next();
         var scale = 0.10f;
-        var peakThreshold = 240f;
-        var mountainThreshold = 220f;
-        var earthThreshold = 80f;
+        var peakThreshold = 235f;
+        var mountainThreshold = 200f;
+        var earthThreshold = 50f;
         float[,] noiseValues = noise.Calc2D(height, width, scale);
         for (int x = 0; x < noiseValues.GetLength(0); x++)
         {

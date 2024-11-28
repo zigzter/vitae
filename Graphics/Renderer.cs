@@ -34,9 +34,6 @@ public class Renderer
             {
                 Position = new Vector2f(cell.Position.X * 10, cell.Position.Y * 10),
                 FillColor = color,
-                // Outline is only for dev
-                /* OutlineColor = Color.Red, */
-                /* OutlineThickness = 1.0f */
             };
             window.Draw(rectangle);
         }
