@@ -41,7 +41,6 @@ public class Renderer
             window.Draw(rectangle);
         }
     }
-    public void DrawEntity(Entity entity) { /* TODO: render */ }
     public void DrawRectangle(Vector2i position, Color color)
     {
         var rectangle = new RectangleShape(new Vector2f(10, 10))

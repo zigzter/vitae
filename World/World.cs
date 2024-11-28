@@ -18,6 +18,7 @@ public class World
     public void Initialize()
     {
         var noise = new Simplex.Noise();
+        noise.Seed = new Random().Next();
         var scale = 0.10f;
         var peakThreshold = 240f;
         var mountainThreshold = 220f;
@@ -25,7 +26,6 @@ public class World
         float[,] noiseValues = noise.Calc2D(height, width, scale);
         for (int x = 0; x < noiseValues.GetLength(0); x++)
         {
-
             for (int y = 0; y < noiseValues.GetLength(0); y++)
             {
                 var noiseVal = noiseValues[x, y];
@@ -54,6 +54,7 @@ public class World
     {
         foreach (var entity in entities) entity.Update(this, deltaTime);
     }
+
     public void Draw(Renderer renderer)
     {
         renderer.DrawTerrain(grid);
